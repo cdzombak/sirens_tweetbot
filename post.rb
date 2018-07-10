@@ -4,7 +4,7 @@ require 'require_relative'
 require 'twitter'
 require_relative 'twitter_init'
 
-$options = { :tweet => true, :city => false, :county => false }
+$options = { :tweet => true, :city => false, :county => false, :fun => false }
 
 opt_parser = OptionParser.new do |opt|
   opt.on("--no-tweet", "Do not post anything to Twitter") do
@@ -17,6 +17,10 @@ opt_parser = OptionParser.new do |opt|
 
   opt.on("--county", "Post County-specific message") do
     $options[:county] = true
+  end
+
+  opt.on("--fun", "Post fun message") do
+    $options[:fun] = true
   end
 end
 
@@ -43,5 +47,10 @@ end
 
 if $options[:county]
   tweet = "Washtenaw County is scheduled to test its outdoor emergency sirens at noon today. Info: https://www.washtenaw.org/1785/Washtenaw-County-Outdoor-Warning-Siren-S"
+  post_tweet(tweet)
+end
+
+if $options[:fun]
+  tweet = "SIRENS!!! TAKE COVER!!!"
   post_tweet(tweet)
 end
