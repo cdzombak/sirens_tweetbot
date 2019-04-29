@@ -1,5 +1,6 @@
 #encoding: UTF-8
 
+require 'optparse'
 require 'require_relative'
 require 'twitter'
 require_relative 'twitter_init'
