@@ -38,11 +38,11 @@ def post_tweet(tweet)
 end
 
 if $options[:city]
-  tweet = "Ann Arbor is scheduled to test its outdoor emergency sirens at 1 PM today. Info: https://www.a2gov.org/departments/emergency-management/Pages/Alert-Systems.aspx"
+  tweet = "Ann Arbor is scheduled to test its outdoor emergency sirens at 1 PM today. (This Tweet is automated. Siren tests are cancelled on days when stormy weather is forecast.) https://www.a2gov.org/departments/emergency-management/Pages/Alert-Systems.aspx"
   post_tweet(tweet)
 end
 
 if $options[:county]
-  tweet = "Washtenaw County is scheduled to test its outdoor emergency sirens at noon today. Info: https://www.washtenaw.org/1785/Washtenaw-County-Outdoor-Warning-Siren-S"
+  tweet = "Washtenaw County is scheduled to test its outdoor emergency sirens at noon today. (This Tweet is automated. Siren tests are cancelled on days when stormy weather is forecast.) https://www.washtenaw.org/1785/Washtenaw-County-Outdoor-Warning-Siren-S"
   post_tweet(tweet)
 end
