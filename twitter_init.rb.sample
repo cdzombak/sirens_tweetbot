@@ -1,6 +1,0 @@
-$client = Twitter::REST::Client.new do |config|
-  config.consumer_key = 'KEY'
-  config.consumer_secret = 'KEY'
-  config.access_token = 'KEY'
-  config.access_token_secret = 'KEY'
-end

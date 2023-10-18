@@ -1,38 +1,13 @@
-# siren_tweetbot
+# sirens_tweetbot
 
-Post alerts to [@ArborWX](https://twitter.com/arborwx) when Ann Arbor or Washtenaw County has a scheduled emergency siren test.
+Post alerts to [a2mi.social/@siren_test_reminders](https://a2mi.social/@siren_test_reminders) when Ann Arbor or Washtenaw County has a scheduled emergency siren test.
 
 ## Setup
 
-1. Sign into [apps.twitter.com](https://apps.twitter.com) with your Twitter credentials
-1. Create an application for posting siren tweets
-1. Set its permissions to read/write and generate OAuth credentials
-1. Create a file named `twitter_init.rb` in this directory with the OAuth credentials
-1. Upload to your server
-1. `bundle install --path Vendor/bundle`
-1. Test it with `bundle exec ruby post.rb --no-tweet`
-1. Schedule it to run regularly with cron
+**n.b.** The server running this must be set to the Eastern timezone (`America/Detroit` or `America/New York` will work), otherwise you'll need to adjust the scheduling in the provided crontab file.
 
-### Crontab
-
-**nb.** The server running this should be set to the Eastern timezone (`America/Detroit` or `America/New York` will work), otherwise this scheduling gets more complicated.
-
-```
-# The City of Ann Arbor ... sirens are tested every second Tuesday of the month at 1 p.m., with a one-minute wail. Testing of sirens is performed from March through November.
-# https://www.a2gov.org/departments/emergency-management/Pages/Alert-Systems.aspx
-
-# m  h    dom   mon    dow  command
-59   12   8-14  3-11   *    test $(date +\%u) -eq 2 && cd /home/cdzombak/scripts/siren_tweetbot && /usr/bin/bundle exec /usr/bin/ruby /home/cdzombak/scripts/siren_tweetbot/post.rb --city
-
-# All Washtenaw County operated sirens will be tested at noon on the first Saturday of every month from March through October.
-# https://www.washtenaw.org/1785/Washtenaw-County-Outdoor-Warning-Siren-S
-
-# m  h    dom   mon    dow  command
-59   11   1-7   3-10   *    test $(date +\%u) -eq 6 && cd /home/cdzombak/scripts/siren_tweetbot && /usr/bin/bundle exec /usr/bin/ruby /home/cdzombak/scripts/siren_tweetbot/post.rb --county
-```
-
-## Command-line options
-
-* `--city`: Post the message associated with the City's tests.
-* `--county`: Post the message associated with the County's tests.
-* `--no-tweet`: Do not post anything to Twitter.
+1. Install [mastodon-post](https://github.com/cdzombak/mastodon-post). If you want to run it via Docker, you'll need to adjust [the provided crontab file](https://github.com/cdzombak/sirens_tweetbot/blob/master/crontab.d/siren-test-reminders.cron) accordingly.
+2. Clone this repo to your server.
+3. Copy [`.env.template`](https://github.com/cdzombak/sirens_tweetbot/blob/master/.env.template) to `.env` and populate it, following the [instructions for mastodon-post](https://github.com/cdzombak/mastodon-post/blob/main/README.md#credentials-and-server-configuration).
+4. Copy the content of [the provided crontab file](https://github.com/cdzombak/sirens_tweetbot/blob/master/crontab.d/siren-test-reminders.cron) into your user's crontab, or place it in `/etc/crontab.d`.
+5. Adjust the `SIREN_TEST_REMINDERS_DIR` variable in the crontab to reflect the repo's location on the server. This allows `mastodon-post` to automatically discover the `.env` file and the cron job to read posts from [the `messages` directory](https://github.com/cdzombak/sirens_tweetbot/blob/master/messages).

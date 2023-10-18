@@ -1,0 +1,7 @@
+
+SIREN_TEST_REMINDERS_DIR=/home/cdzombak/opt/siren_test_reminders
+# m  h    dom   mon    dow  command
+# City of Ann Arbor:
+58   12   8-14  3-10   *    test $(date +\%u) -eq 2 && cd "$SIREN_TEST_REMINDERS_DIR" && mastodon-post -text "$(cat "$SIREN_TEST_REMINDERS_DIR/message/ann-arbor-city.txt")"
+# Washtenaw County:
+58   11   1-7   3-10   *    test $(date +\%u) -eq 6 && cd "$SIREN_TEST_REMINDERS_DIR" && mastodon-post -text "$(cat "$SIREN_TEST_REMINDERS_DIR/message/washtenaw-county.txt")"
